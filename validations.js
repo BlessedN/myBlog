@@ -21,3 +21,4 @@ export const postCreateValidation = [
     body('tags', 'Неверный формат тэгов (укажите массив)').optional().isString(),
     body('imageUrl', 'Неверная ссылка на изображение').optional().isString(), // optional() - у статьи может быть картинка, а может и не быть
 ];
+//
