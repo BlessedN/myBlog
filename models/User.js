@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-//Модель пользователя
+// //Модель пользователя
 const UserSchema = new mongoose.Schema({ //в этой схеме мы опишем все свойства, которые могут быть у пользовваателя
     fullName: {
         type: String,
