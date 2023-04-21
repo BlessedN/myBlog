@@ -4,11 +4,6 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import UserModel from './models/User.js'
 import { registerValidation } from "./validations.js";
-// import checkAuth from "./utils/checkAuth.js";
-
-// import * as UserController from './controllers/UserController';
-// import * as PostController from './controllers/PostController';
-
 
 import { validationResult } from "express-validator";
 
