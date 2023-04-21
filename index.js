@@ -7,7 +7,6 @@ import { registerValidation } from "./validations.js";
 
 import { validationResult } from "express-validator";
 
-
 mongoose
   .connect("mongodb+srv://mongo:mongo123@cluster0.ybbmxdp.mongodb.net/infablog?retryWrites=true&w=majority")
   .then(() => console.log("DB ok"))
