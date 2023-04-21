@@ -20,4 +20,4 @@ const UserSchema = new mongoose.Schema({ //в этой схеме мы опиш�
     timestamps: true, //при создании любой сущности(пользователя)
 });
 
-export default mongoose.model('User', UserSchema)
+export default mongoose.model('User', UserSchema);
