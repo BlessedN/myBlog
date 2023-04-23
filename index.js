@@ -1,11 +1,10 @@
 import express from 'express';
 import mongoose from "mongoose";
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
-import UserModel from './models/User.js'
-import { registerValidation } from "./validations.js";
-
+import { loginValidation, registerValidation } from "./validations.js";
+import checkAuth from "./utils/checkAuth.js";
 import { validationResult } from "express-validator";
+import { register, login, getMe } from './controllers/UserController.js';
+import { UserController } from './controllers/index.js';
 
 mongoose
   .connect("mongodb+srv://mongo:mongo123@cluster0.ybbmxdp.mongodb.net/infablog?retryWrites=true&w=majority")
@@ -16,87 +15,13 @@ const app = express();
 
 app.use(express.json()); // из-за этого была ошибка
 
-app.post('/auth/login', async (req,res) => {
-  try {
-    const user = await UserModel.findOne({email: req.body.email});
+app.post('/auth/login',loginValidation, UserController.login);
+app.post('/auth/register',registerValidation, UserController.register);
+app.get('/auth/me', checkAuth, UserController.getMe);
 
-    if(!user){
-      return res.status(404).json({
-        message: 'Пользователь не найден',
-      })
-    }
 
-    const isValidPass = await bcrypt.compare(req.body.password, user._doc.passwordHash);
-    if (!isValidPass){
-      return res.status(400).json({
-        message:'Неверный логин или пароль',
-      });
-    }
 
-    const token = jwt.sign(
-      {
-    _id: user._id,
-    },
-    'pasww123',
-    {
-      expiresIn: '30d',
-    }
-    );
-    const {passwordHash, ... userData} = user._doc;
-
-    res.json({
-      ... userData, //
-      token,
-    });
-  } 
-  catch (err){}
-})
-
-app.post('/auth/register', registerValidation, async (req,res) => {
-  try {
-    const errors = validationResult(req);
-  if (!errors.isEmpty()){
-    return res.status(400).json(errors.array());
-  }
-
-const password = req.body.password; 
-const salt = await bcrypt.genSalt(10);
-const hash = await bcrypt.hash(password, salt);
-
-const doc = new UserModel({ //create user in BD
-  email: req.body.email,
-  fullName: req.body.fullName,
-  avatarUrl: req.body.avatarUrl,
-  passwordHash: hash,
-});
-
-const user = await doc.save();
-
-const token = jwt.sign(
-  {
-_id: user._id,
-},
-'pasww123',
-{
-  expiresIn: '30d',
-}
-);
-
-const {passwordHash, ... userData} = user._doc;
-
-  res.json({
-    ... userData, //
-    token,
-  });
-  } catch (err){
-    console.log(err);
-    res.status(500).json({
-      message: 'Не удалось зарегистрироваться'
-    })
-  };
-});
-
-app.listen(4444, (err) => { //команда, запуска сервера
+app.listen(4444, (err) => { 
   if (err) {
     return console.log(err);
   }

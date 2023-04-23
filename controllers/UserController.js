@@ -1,6 +1,7 @@
-// import jwt from "jsonwebtoken";
-// import bcrypt from "bcrypt"; //зашифровка паролей
-// import { validationResult } from "express-validator"; //проверка есть ли ошибка при валидации формы регистр
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import { validationResult } from "express-validator";
+import UserModel from '../models/User.js'
 
 // import UserModel from "../models/User.js";
 
@@ -48,6 +49,17 @@
 // }
 // };
 
+    res.json({
+      ...userData, //
+      token,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: "Не удалось зарегистрироваться",
+    });
+  }
+};
 
 // export const login = async (req, res) => {
 //     try {
