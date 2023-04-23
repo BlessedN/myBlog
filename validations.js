@@ -1,10 +1,10 @@
 import { body } from 'express-validator';
 
 // //создание валидации авторизации
-// export const loginValidation = [
-//     body('email','Неверный формат почты').isEmail(),
-//     body('password', 'Пароль должен быть минимум 5 символов').isLength({ min: 5}),
-// ];
+export const loginValidation = [
+    body('email','Неверный формат почты').isEmail(),
+    body('password', 'Пароль должен быть минимум 5 символов').isLength({ min: 5}),
+];
 
 // //создание валидации регистрации
 export const registerValidation = [
