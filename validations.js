@@ -15,9 +15,9 @@ export const registerValidation = [
 ];
 
 // //создание валидации статьи
-// export const postCreateValidation = [
-//     body('title','Введите заголовок статьи').isLength({min: 3}).isString(),
-//     body('text', 'Введите текст статьи').isLength({ min: 10}).isString(),
-//     body('tags', 'Неверный формат тэгов (укажите массив)').optional().isString(),
-//     body('imageUrl', 'Неверная ссылка на изображение').optional().isString(), // optional() - у статьи может быть картинка, а может и не быть
-// ];
+export const postCreateValidation = [
+    body('title','Введите заголовок статьи').isLength({min: 3}).isString(),
+    body('text', 'Введите текст статьи').isLength({ min: 10}).isString(),
+    body('tags', 'Неверный формат тэгов (укажите массив)').optional().isString(),
+    body('imageUrl', 'Неверная ссылка на изображение').optional().isString(), // optional() - у статьи может быть картинка, а может и не быть
+];
