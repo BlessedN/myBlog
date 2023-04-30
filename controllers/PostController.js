@@ -74,7 +74,7 @@ export const remove = async (req, res) => {
                 success: true,
             });
 
-        }
+        },
     );
 
     } catch (err){
