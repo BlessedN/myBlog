@@ -67,7 +67,7 @@ export const login = async (req, res) => {
       "pasww123",
       {
         expiresIn: "30d",
-      }
+      },
     );
     const { passwordHash, ...userData } = user._doc;
 

@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-//Модель пользователя
 const PostSchema = new mongoose.Schema( //в этой схеме мы опишем все свойства, которые могут быть у пользовваателя
     {
         title: {
