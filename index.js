@@ -56,6 +56,7 @@ app.patch(
   PostController.update,
 );
 
+app.get('/popular/posts', PostController.getPopularPosts);
 
 
 app.listen(4444, (err) => { 

@@ -1,6 +1,19 @@
 import { json } from 'express';
 import PostModel from '../models/Post.js'
 
+export const getPopularPosts = async (req, res) => {
+    try{
+        const popularPosts = await PostModel.find().sort({viewsCount: -1}).exec();
+        res.json(popularPosts);
+    } catch (err){
+        console.log(err);
+        res.status(500).json({
+            message: "Не удалось получить популярные посты",
+        });
+    }
+};
+
+
 export const getLastTags = async (req, res) => {
 try{
     const posts = await PostModel.find().limit(5).exec();
@@ -21,7 +34,7 @@ try{
 
 export const getAll = async (req, res) => {
     try{
-        const posts = await PostModel.find().populate('user').exec();
+        const posts = await PostModel.find().populate('user').sort({createdAt: -1}).exec();
         res.json(posts);
     } catch (err){
         console.log(err);
@@ -39,6 +52,9 @@ export const getOne = async (req, res) => {
             {
                 _id: postId,
             }, 
+            // { 
+            //     $set: { ...postData },
+            // },
             {
                 $inc: { viewsCount: 1 },
             },
