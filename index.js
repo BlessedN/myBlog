@@ -58,6 +58,7 @@ app.patch(
 
 app.get('/popular/posts', PostController.getPopularPosts);
 
+app.get('/posts/tags/:tag', PostController.getTags);
 
 app.listen(4444, (err) => { 
   if (err) {

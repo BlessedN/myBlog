@@ -1,6 +1,20 @@
 import { json } from 'express';
 import PostModel from '../models/Post.js'
 
+export const getTags = async (req, res) => {
+    const tag = req.params.tag;
+    try {
+        const posts = await PostModel.find({ tags: tag }).exec();
+        res.json(posts);
+    } catch (err){
+        console.log(err);
+        res.status(500).json({
+            message: "Не удалось получить посты с такими тегами",
+        });
+    }
+
+};
+
 export const getPopularPosts = async (req, res) => {
     try{
         const popularPosts = await PostModel.find().sort({viewsCount: -1}).exec();
@@ -12,7 +26,6 @@ export const getPopularPosts = async (req, res) => {
         });
     }
 };
-
 
 export const getLastTags = async (req, res) => {
 try{

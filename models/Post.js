@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const PostSchema = new mongoose.Schema( //в этой схеме мы опишем все свойства, которые могут быть у пользователя
     {
-        title: {
+    title: {
         type: String,
         require: true,
     },
