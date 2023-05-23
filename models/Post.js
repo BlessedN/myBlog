@@ -25,6 +25,7 @@ const PostSchema = new mongoose.Schema( //в этой схеме мы опише
         require: true,
         },
     imageUrl: String, 
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
 }, {
     timestamps: true, //при создании любой сущности(пользователя)
 });

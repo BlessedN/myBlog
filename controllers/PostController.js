@@ -47,7 +47,7 @@ try{
 
 export const getAll = async (req, res) => {
     try{
-        const posts = await PostModel.find().populate('user').sort({createdAt: -1}).exec();
+        const posts = await PostModel.find().populate('user').populate("comments").sort({createdAt: -1}).exec();
         res.json(posts);
     } catch (err){
         console.log(err);
@@ -140,6 +140,7 @@ export const create = async (req, res ) => {
             imageUrl: req.body.imageUrl,
             tags: req.body.tags.split(','),
             user: req.userId,
+            comments: [],
         });
 
 
@@ -168,6 +169,7 @@ export const update = async (req, res) => {
             imageUrl: req.body.imageUrl,
             user: req.userId,   
             tags: req.body.tags.split(','),
+            comments: req.body.comments
         },
       );
 

@@ -2,7 +2,7 @@ import express from 'express';
 import mongoose from "mongoose";
 import fs from 'fs';
 import { loginValidation, registerValidation, postCreateValidation } from "./validations.js";
-import {UserController, PostController} from './controllers/index.js';
+import {UserController, PostController, CommentController} from './controllers/index.js';
 import multer from "multer";
 import {checkAuth, handleValidationErrors}  from "./utils/index.js";
 import cors from 'cors';
@@ -59,6 +59,8 @@ app.patch(
 app.get('/popular/posts', PostController.getPopularPosts);
 
 app.get('/posts/tags/:tag', PostController.getTags);
+
+app.post('/posts/comment', CommentController.createComment);
 
 app.listen(4444, (err) => { 
   if (err) {
