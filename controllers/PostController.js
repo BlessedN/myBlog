@@ -64,10 +64,7 @@ export const getOne = async (req, res) => {
         PostModel.findOneAndUpdate(
             {
                 _id: postId,
-            }, 
-            // { 
-            //     $set: { ...postData },
-            // },
+            },
             {
                 $inc: { viewsCount: 1 },
             },
@@ -75,11 +72,11 @@ export const getOne = async (req, res) => {
                 returnDocument: 'after',
             },
             (err, doc) => {
-                    if (err) {
-                        console.log(err);
-                        return res.status(500).json({
-                        message: "Не удалось вернуть статью",
-                    });
+                if (err) {
+                    console.log(err);
+                    return res.status(500).json({
+                    message: "Не удалось вернуть статью",
+                });
                 }
                 if (!doc){
                     return res.status(404).json({
@@ -88,7 +85,7 @@ export const getOne = async (req, res) => {
                 }
                 res.json(doc);
             },
-        ).populate('user');
+        ).populate('user').populate("comments");
     } catch (err){
         console.log(err);
         res.status(500).json({
@@ -108,7 +105,7 @@ export const remove = async (req, res) => {
                 console.log(err);
                 res.status(500).json({
                     message: "Не удалось удалить статью",
-                });        
+                });
             }
 
             if (!doc){
@@ -159,7 +156,7 @@ export const update = async (req, res) => {
     try{
         const postId = req.params.id;
 
-        await PostModel.updateOne( 
+        await PostModel.updateOne(
         {
             _id: postId,
         },
@@ -167,7 +164,7 @@ export const update = async (req, res) => {
             title: req.body.title,
             text: req.body.text,
             imageUrl: req.body.imageUrl,
-            user: req.userId,   
+            user: req.userId,
             tags: req.body.tags.split(','),
             comments: req.body.comments
         },

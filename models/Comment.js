@@ -15,6 +15,11 @@ const СommentSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Post',
         require: true
+    },
+    user: {
+        type: Object,
+        ref: 'User',
+        require: true,
     }
 })
 

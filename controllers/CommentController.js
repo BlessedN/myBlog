@@ -1,13 +1,14 @@
 import CommentModel from '../models/Comment.js';
 import PostModel from '../models/Post.js';
 
-export const createComment = async (req, res ) => {
+export const createComment = async (req, res) => {
     try {
         const post = await PostModel.findById(req.body.post);
         const doc = new CommentModel({
             text: req.body.text,
             date: req.body.date,
-            post: req.body.post
+            post: req.body.post,
+            user: req.body.user
         });
         if (!post) { // если пост не найден, возвращаем ошибку
             return res.status(404).json({
@@ -30,4 +31,16 @@ export const createComment = async (req, res ) => {
         });
     }
 };
+
+// export const getComment = async (req, res) => {
+//     try {
+//         const comments = await CommentModel.findById(req.body.post.type)
+
+//     } catch (err) {
+//         console.log(err);
+//         res.status(500).json({
+//             message: "Не удалось прокомментировать",
+//         });
+//     }
+// }
 
