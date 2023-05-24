@@ -32,15 +32,3 @@ export const createComment = async (req, res) => {
     }
 };
 
-// export const getComment = async (req, res) => {
-//     try {
-//         const comments = await CommentModel.findById(req.body.post.type)
-
-//     } catch (err) {
-//         console.log(err);
-//         res.status(500).json({
-//             message: "Не удалось прокомментировать",
-//         });
-//     }
-// }
-
